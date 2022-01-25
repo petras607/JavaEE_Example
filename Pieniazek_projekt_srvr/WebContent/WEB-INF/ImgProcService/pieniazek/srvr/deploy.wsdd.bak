@@ -1,0 +1,30 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImgProcService WSDL service -->
+
+  <service name="ImgProc" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://srvr.pieniazek"/>
+      <parameter name="wsdlServiceElement" value="ImgProcService"/>
+      <parameter name="schemaQualified" value="http://srvr.pieniazek"/>
+      <parameter name="wsdlServicePort" value="ImgProc"/>
+      <parameter name="className" value="pieniazek.srvr.ImgProcSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="ImgProc"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="startProc" qname="operNS:startProc" xmlns:operNS="http://srvr.pieniazek" returnQName="retNS:startProcReturn" xmlns:retNS="http://srvr.pieniazek" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:path" xmlns:pns="http://srvr.pieniazek" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:mode" xmlns:pns="http://srvr.pieniazek" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="startProc"/>
+
+  </service>
+</deployment>
